@@ -1,6 +1,6 @@
 # NJTPAGrantsAnalysis
 
-# NJTPA Grants Tracker — SQL Queries
+NJTPA Grants Tracker — SQL Queries
 
 SQL queries written against the NOTIS grants tracking database 
 at the North Jersey Transportation Planning Authority (NJTPA), 
