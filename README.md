@@ -56,9 +56,9 @@ human-readable programmed status flag, used for cycle-specific
 federal reporting periods.
 
 ## Context
-Outputs from these queries were published via SSRS Report Builder 
+Outputs from the SQL queries were published via SSRS Report Builder 
 for distribution to project managers, county liaisons, and 
-executive staff.
+executive staff. The Python automation that follows later cleans up this data for public use.
 
 How to run it 
 
