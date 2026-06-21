@@ -2,6 +2,9 @@
 
 ## Grants Cleanup + ETL Process
 
+**Timeline - early-mid June 2026 
+**
+
 This project recreates an ETL process I previously ran manually using Excel and SQL Server at NJTPA. The original grants data has been anonymized — award amounts are scaled by a randomi factor and project titles replaced with placeholder labels to make this data suitable for public sharing.
 
 Purpose: 
@@ -25,14 +28,14 @@ How to run it
 Requires pandas. Place your own CSV in the same format in the working directory, update the filename in the extract() call, and run the script. The pipeline will read the CSV, clean and anonymize it, and write the result to a grants.db SQLite file with a table named grants.
 
 
-Late May - Early June 2026 
+**Timeline - Late May - Early June 2026 
+**
+**NJTPA Grants Tracker — SQL Queries
+**
 
-NJTPA Grants Tracker — SQL Queries
+These are some of the SQL queries written against the federal grants tracking database at the North Jersey Transportation Planning Authority (NJTPA), supporting federal grant monitoring and reporting across a 13-county region in northern New Jersey.
 
-SQL queries written against the NOTIS grants tracking database 
-at the North Jersey Transportation Planning Authority (NJTPA), 
-supporting federal grant monitoring and reporting across a 
-13-county region in northern New Jersey.
+I had run these queries within our native SSMS environment using our server before I began the process of creating an automated pipeline using Python. In that, data has been anonymized (see above)
 
 ## Queries
 
@@ -56,3 +59,7 @@ federal reporting periods.
 Outputs from these queries were published via SSRS Report Builder 
 for distribution to project managers, county liaisons, and 
 executive staff.
+
+How to run it 
+
+Requires the dataset loaded onto SSMS, and a SQL-capable IDE for running each query. Query samples have been optimized for readability.
