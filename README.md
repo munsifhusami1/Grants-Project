@@ -35,7 +35,7 @@ Requires pandas. Place your own CSV in the same format in the working directory,
 
 These are some of the SQL queries written against the federal grants tracking database at the North Jersey Transportation Planning Authority (NJTPA), supporting federal grant monitoring and reporting across a 13-county region in northern New Jersey.
 
-I had run these queries within our native SSMS environment using our server before I began the process of creating an automated pipeline using Python. In that, data has been anonymized (see above)
+I used these queries in SSMS as part of my work at NJTPA, before I began the process of creating an automated pipeline using Python. In that, data has been anonymized (see above)
 
 ## Queries
 
