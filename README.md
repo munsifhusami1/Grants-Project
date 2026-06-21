@@ -7,6 +7,9 @@
 
 This project recreates an ETL process I previously ran manually using Excel and SQL Server at NJTPA. The original grants data has been anonymized — award amounts are scaled by a randomi factor and project titles replaced with placeholder labels to make this data suitable for public sharing.
 
+Here's the manual process this pipeline replaces:
+<img width="3360" height="2100" alt="image" src="https://github.com/user-attachments/assets/59063475-42af-470b-bb2c-956177d01c96" />
+
 Purpose: 
 
 First I loaded up pandas, then sqlite3 to store the file, then finalled string to replace labels for all project titles.
