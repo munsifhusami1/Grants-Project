@@ -1,4 +1,4 @@
-# NJTPAGrantsAnalysis
+# Grants Project
 
 NJTPA Grants Tracker — SQL Queries
 
