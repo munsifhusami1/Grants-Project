@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import pandas as pd
-import sqlite3
+from sqlalchemy import create_engine
 import string
 
 def extract(filepath):
@@ -47,8 +47,8 @@ print(Grants_1[' Amount '].head(5))
 print(Grants_1['Project Title'].head(5))
 
 def load(df):
-    conn = sqlite3.connect('grants.db')
-    df.to_sql('grants', conn, if_exists='replace')
+    engine = create_engine('sqlite:///grants.db')
+    df.to_sql('grants', engine, if_exists='replace', index=False)
 
 conn2 = sqlite3.connect('grants.db')
 print(pd.read_sql('SELECT * FROM grants LIMIT 5', conn2))
