@@ -1,15 +1,22 @@
-# Grants Project
+# Grants ETL Process
 
-## Grants Cleanup + ETL Process
 
 **Timeline - early-mid June 2026 
 **
 
-This project recreates an ETL process I previously ran manually using Excel and SQL Server at NJTPA. The original grants data has been anonymized — award amounts are scaled by a randomi factor and project titles replaced with placeholder labels to make this data suitable for public sharing. 
+State and regional transportation agencies manage hundreds of active grants across multiple funding programs at the federal level. Tracking each project's award status, expenditure, and compliance with manual data entry across Excel and SQL Server creates reporting delays and data integrity risks. 
 
-Here's the manual process this pipeline replaces:
-<img width="1926" height="1748" alt="image" src="https://github.com/user-attachments/assets/6b76d193-b222-4e57-9d74-d7906c2ba8d0" />
+This project automates that process, ingesting raw grants data and applying a repeatable cleaning and transformation pipeline. The result is a series of analysis-ready outputs for program reporting and decision-making.
 
+Note: Source data has been anonymized for public sharing, award amounts scaled by a random factor, project titles replaced with placeholders.
+
+## Tools
+
+Considering the sensitivity of government data and PII attached to records, I used Google Colab to keep the process off of internal software, anonymizing all personally identifiable information and real award figures. Colab allows me to share my files externally without any security risks to my employer's own server. I used Python for its data manipulation libraries, such as Pandas, to help me build a repeatable pipeline that avoided any reliance on our proprietary tooling as well. This approach is due to a common constraint of public sector work, as data governance policies prohibit using any external platforms on native data.
+
+Here's the manual process this pipeline replaces: <img width="761" height="906" alt="New ETL flow" src="https://github.com/user-attachments/assets/5f4c1950-3c47-4fc4-ad49-1026333628f9" />
+
+## #FIX STARTING HERE
 Purpose: 
 
 First I loaded up pandas, then sqlite3 to store the file, then finalled string to replace labels for all project titles.
