@@ -1,7 +1,7 @@
 # Grants ETL Process
 
 
-## Timeline - early-mid June 2026 
+** Timeline - early-mid June 2026 **
 
 State and regional transportation agencies manage hundreds of active grants across multiple funding programs at the federal level. Tracking each project's award status, expenditure, and compliance with manual data entry across Excel and SQL Server creates reporting delays and data integrity risks. 
 
@@ -33,7 +33,7 @@ Requires pandas. Place a CSV in the same format in the working directory, update
 
 ## SQL Queries for Reporting
 
-## Timeline — Late May/Early June 2026
+**Timeline — Late May/Early June 2026**
 
 The following queries were executed against the federal grants tracking database at NJTPA, supporting grant monitoring and reporting across a 13-county region in northern New Jersey. Queries preceded the Python automation pipeline and were run in SQL Server Management Studio for report generation. Data has been anonymized as described above.
 
