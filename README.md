@@ -36,19 +36,38 @@ Requires pandas. Place a CSV in the same format in the working directory, update
 
 ## Timeline — Late May/Early June 2026
 
-The following queries were executed against the federal grants tracking database at the North Jersey Transportation Planning Authority (NJTPA), supporting grant monitoring and reporting across a 13-county region in northern New Jersey. Queries preceded the Python automation pipeline and were run in SSMS for report generation. Data has been anonymized as described above.
+The following queries were executed against the federal grants tracking database at NJTPA, supporting grant monitoring and reporting across a 13-county region in northern New Jersey. Queries preceded the Python automation pipeline and were run in SQL Server Management Studio for report generation. Data has been anonymized as described above.
 
-## Union County Grants — Not Programmed or Obligated
+## Featured query — Union County grant risk flagging
 
-Identifies awarded federal grants in Union County not yet programmed into the Transportation Improvement Program (TIP) or obligated for spending — used to flag at-risk grants before federal deadlines.
+Identifies awarded grants in Union County that remain unprogrammed and unobligated, surfacing at-risk projects before federal spending deadlines. CASE statements convert binary flags into human-readable status fields for distribution to non-technical stakeholders.
 
-## All Locally Sponsored Projects
+SELECT 
+     [Awarded_FY]
+      ,[Agency]
+      ,[Funding_Source]
+      ,[Project_Title]
+      ,[Description_Summary]
+      ,[TIP_DBNUM]
+      ,[Grant_Type]
+      ,[Amount]
+      ,CASE
+      WHEN Programmed = 1 THEN 'Yes'
+      WHEN Programmed = 0 THEN 'No'
+      END AS [Programmed]
+      ,CASE
+      WHEN Obligated = 1 THEN 'Yes'
+      WHEN Obligated = 0 THEN 'No'
+      END AS [Obligated]
+      ,[Municipality]
+      ,[Recipient]
+FROM dbo.[Grants Tracker]
+WHERE County_ies = 'Union'
+AND [Programmed] != 1
+AND [Obligated] != 1
+ORDER BY [Awarded_FY] ASC
 
-Filters the grants database to isolate locally sponsored projects by excluding state agency recipients, supporting subrecipient compliance monitoring and outreach tracking.
-
-## FY 2022–2023 Grants with Programmed Status
-
-Returns all grants awarded in FY 2022 and 2023 with a human-readable programmed status flag, used for cycle-specific federal reporting.
+Additional queries supported FY 2022-2023 cycle reporting and subrecipient compliance monitoring for locally sponsored projects, filtering by obligation status and recipient type respectively.
 
 ## Context
 
