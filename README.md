@@ -42,6 +42,7 @@ The following queries were executed against the federal grants tracking database
 
 Identifies awarded grants in Union County that remain unprogrammed and unobligated, surfacing at-risk projects before federal spending deadlines. CASE statements convert binary flags into human-readable status fields for distribution to non-technical stakeholders.
 
+```
 SELECT 
      [Awarded_FY]
       ,[Agency]
@@ -66,7 +67,7 @@ WHERE County_ies = 'Union'
 AND [Programmed] != 1
 AND [Obligated] != 1
 ORDER BY [Awarded_FY] ASC
-
+```
 Additional queries supported FY 2022-2023 cycle reporting and subrecipient compliance monitoring for locally sponsored projects, filtering by obligation status and recipient type respectively.
 
 ## Context
