@@ -1,8 +1,7 @@
 # Grants ETL Process
 
 
-**Timeline - early-mid June 2026 
-**
+## Timeline - early-mid June 2026 
 
 State and regional transportation agencies manage hundreds of active grants across multiple funding programs at the federal level. Tracking each project's award status, expenditure, and compliance with manual data entry across Excel and SQL Server creates reporting delays and data integrity risks. 
 
