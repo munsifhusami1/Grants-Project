@@ -13,7 +13,7 @@ Note: Source data has been anonymized for public sharing, award amounts scaled b
 
 Google Colab was selected to keep the pipeline off internal infrastructure, avoiding exposure of proprietary tools and ensuring no security risk to agency systems. All personally identifiable information and real award figures are anonymized prior to any external sharing. Python was chosen for its data manipulation libraries — primarily pandas — enabling a repeatable, portable pipeline without reliance on agency-specific tooling. This reflects a common constraint in public sector work, where data governance policies restrict use of external platforms on native infrastructure.
 
-Here's the manual process this pipeline replaces: <img width="761" height="906" alt="New ETL flow" src="https://github.com/user-attachments/assets/5f4c1950-3c47-4fc4-ad49-1026333628f9" />
+The following diagram illustrates the manual process that this ETL pipeline replaces: <img width="761" height="906" alt="New ETL flow" src="https://github.com/user-attachments/assets/5f4c1950-3c47-4fc4-ad49-1026333628f9" />
 
 ## Pipeline Overview
 
@@ -29,7 +29,7 @@ A main() function runs extract, transform, and load in sequence, executing the f
 
 ## Debugging 
 
-Transform functions were run twice during early iterations which resulted in inaccurate multiplication factors. These were rewritten and the code rebuilt in a new notebook to minimize stale function carryover from COlab.
+Transform functions were run twice during early iterations which resulted in inaccurate multiplication factors. These were rewritten and the code rebuilt in a new notebook to minimize stale function carryover from Colab.
 
 ## How to Run
 
