@@ -5,7 +5,7 @@
 
 State and regional transportation agencies manage hundreds of active grants across multiple funding programs at the federal level. Tracking each project's award status, expenditure, and compliance with manual data entry across Excel and SQL Server creates reporting delays and data integrity risks. 
 
-This project automates that process, ingesting raw grants data and applying a repeatable cleaning and transformation pipeline. The result is a series of analysis-ready outputs for program reporting and decision-making. The result reduces manual reporting time and eliminates a class of data integrity errors common in multi-source grant tracking.
+This project automates that process, ingesting raw grants data and applying a repeatable cleaning and transformation pipeline. The result is a series of analysis-ready outputs for program reporting and decision-making, reducing manual reporting time and eliminating a class of data integrity errors common in multi-source grant tracking.
 
 Note: Source data has been anonymized for public sharing, award amounts scaled by a random factor, project titles replaced with placeholders.
 
@@ -81,4 +81,4 @@ During active grant monitoring at NJTPA, the manual process supported the follow
 2. Subrecipient compliance tracking for locally sponsored projects
 3. Cycle-specific reporting for FY 2022-2023 federal grant awards
 
-Reports were distributed to project managers, county liaisons, and executive staff via Power BI Report Builder. This ETL pipeline recreates and automates that manual workflow, reducing consolidation time across three source systems and eliminating the formatting inconsistencies that previously required manual correction before each reporting cycle. The Python pipeline documented above automates and extends this process for public use.
+Reports were distributed to project managers, county liaisons, and executive staff via Power BI Report Builder. This ETL pipeline recreates and automates that manual workflow, reducing consolidation time across three source systems and eliminating the formatting inconsistencies that previously required manual correction before each reporting cycle. 
