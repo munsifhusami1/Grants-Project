@@ -27,6 +27,10 @@ Load: The cleaned, anonymized dataframe is written to a SQLite database table, m
 
 A main() function runs extract, transform, and load in sequence, executing the full pipeline with a single call — the standard structure for production ETL workflows.
 
+## Debugging 
+
+Transform functions were run twice during early iterations which resulted in inaccurate multiplication factors. These were rewritten and the code rebuilt in a new notebook to minimize stale function carryover from COlab.
+
 ## How to Run
 
 Requires pandas. Place a CSV in the same format in the working directory, update the filename in the extract() call, and run the script. The pipeline outputs a grants.db SQLite file with a table named grants.
@@ -71,4 +75,4 @@ Additional queries supported FY 2022-2023 cycle reporting and subrecipient compl
 
 ## Context
 
-Query outputs were published via SSRS Report Builder for distribution to project managers, county liaisons, and executive staff. The Python pipeline documented above automates and extends this process for public use.
+Query outputs were published via Power BI Report Builder for distribution to project managers, county liaisons, and executive staff. The Python pipeline documented above automates and extends this process for public use.
