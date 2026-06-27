@@ -28,7 +28,7 @@ Load: The cleaned, anonymized dataframe is written to a SQLite database table, m
 
 A main() function runs extract, transform, and load in sequence, executing the full pipeline with a single call — the standard structure for production ETL workflows.
 
-##How to Run
+## How to Run
 
 Requires pandas. Place a CSV in the same format in the working directory, update the filename in the extract() call, and run the script. The pipeline outputs a grants.db SQLite file with a table named grants.
 
