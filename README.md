@@ -73,6 +73,12 @@ ORDER BY [Awarded_FY] ASC
 ```
 Additional queries supported FY 2022-2023 cycle reporting and subrecipient compliance monitoring for locally sponsored projects, filtering by obligation status and recipient type respectively.
 
-## Context
+## Outputs
 
-Query outputs were published via Power BI Report Builder for distribution to project managers, county liaisons, and executive staff. The Python pipeline documented above automates and extends this process for public use.
+During active grant monitoring at NJTPA, the manual process supported the following reporting use cases across a 13-county region:
+
+1. Identification of at-risk grants approaching federal obligation deadlines
+2. Subrecipient compliance tracking for locally sponsored projects
+3. Cycle-specific reporting for FY 2022-2023 federal grant awards
+
+Reports were distributed to project managers, county liaisons, and executive staff via Power BI Report Builder. This ETL pipeline recreates and automates that manual workflow, reducing consolidation time across three source systems and eliminating the formatting inconsistencies that previously required manual correction before each reporting cycle. The Python pipeline documented above automates and extends this process for public use.
