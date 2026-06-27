@@ -1,59 +1,78 @@
-# Grants Project
-
-## Grants Cleanup + ETL Process
-
-**Timeline - early-mid June 2026 
-**
-
-This project recreates an ETL process I previously ran manually using Excel and SQL Server at NJTPA. The original grants data has been anonymized — award amounts are scaled by a randomi factor and project titles replaced with placeholder labels to make this data suitable for public sharing. 
-
-Here's the manual process this pipeline replaces:
-<img width="1926" height="1748" alt="image" src="https://github.com/user-attachments/assets/6b76d193-b222-4e57-9d74-d7906c2ba8d0" />
-
-Purpose: 
-
-First I loaded up pandas, then sqlite3 to store the file, then finalled string to replace labels for all project titles.
-
-Debugging: Initial exploratory data analysis showed me a few things had to change. Each record needed title and amount anonymization, but I also had to clear up $ and , signs for all monetary amounts so Pandas could read it. While building, I ran into a bug: on one pass, I accidentally ran the transform function's multiplication step twice on the same data, which silently doubled the anonymization factor. Separately, I hit a wall where the Award Amount and Total Project Cost columns kept showing up as NaN after conversion. The dollar signs and commas in the raw values were not stripped out before I called pandas' numeric conversion, so it had nothing valid to convert. I thus has to rewrite the file, whrre my correction was to first strip $ and , characters first using regular expressions, then convert to numeric, then multiply by the factor used. I rebuilt this in a new notebook to make sure no duplicate or stale function definitions were left over from earlier debugging.
-
-Colab's runtime can carry over old or stale functions which was what caused the issue to persist this long.
-
-Once this was sorted out, I created an extract function to upload the source CSV dataset. Once uploaded, I examined the dataset for what the current Award amounts look like. 
-
-Then I created a transform function to execute a few tasks. I picked 3 main columns to work on; for the Award Amounts and Project Costs, I used regular expressions to remove $ signs, commas and any decimals. Then I used pandas to convert all amounts to numeric style. Then I multiplied by 1.3 to anonymize the real figures. Finally for the Project Titles, I created a set of labels to substitute for real project titles using a String function.
-
-Finally, I used a load function to load up the data into the SQLite storage I created. The load function writes the cleaned, anonymized dataframe into a SQLite database table, so the data is queryable with SQL rather than sitting in a flat file.
-
-Finally, I built a main() function that runs extract, transform, and load in sequence, so the entire pipeline executes with a single function call. This is the structure most real-world ETL pipelines follow.
-
-## How to run it
-
-Requires pandas. Place your own CSV in the same format in the working directory, update the filename in the extract() call, and run the script. The pipeline will read the CSV, clean and anonymize it, and write the result to a grants.db SQLite file with a table named grants.
+# Grants ETL Process
 
 
-## SQL Queries for Reportin
-## Timeline - Late-May/Early June 2026
+** Timeline - early-mid June 2026 **
 
-These are some of the SQL queries written against the federal grants tracking database at the North Jersey Transportation Planning Authority (NJTPA), supporting federal grant monitoring and reporting across a 13-county region in northern New Jersey.
+State and regional transportation agencies manage hundreds of active grants across multiple funding programs at the federal level. Tracking each project's award status, expenditure, and compliance with manual data entry across Excel and SQL Server creates reporting delays and data integrity risks. 
 
-I used these queries in SSMS as part of my work at NJTPA, before I began the process of creating an automated pipeline using Python. In that, data has been anonymized (see above)
+This project automates that process, ingesting raw grants data and applying a repeatable cleaning and transformation pipeline. The result is a series of analysis-ready outputs for program reporting and decision-making.
 
-**Queries**
+Note: Source data has been anonymized for public sharing, award amounts scaled by a random factor, project titles replaced with placeholders.
 
-**Union County Grants — Not Programmed or Obligated**
-Identifies awarded federal grants in Union County that have not yet been programmed into the Transportation Improvement Program 
-(TIP) or obligated for spending — used to flag at-risk grants before deadline.
+## Tools
 
-**All Locally Sponsored Projects**
-Filters the grants database to isolate locally sponsored projects by excluding state agency recipients, supporting subrecipient 
-compliance monitoring and outreach tracking.
+Google Colab was selected to keep the pipeline off internal infrastructure, avoiding exposure of proprietary tools and ensuring no security risk to agency systems. All personally identifiable information and real award figures are anonymized prior to any external sharing. Python was chosen for its data manipulation libraries — primarily pandas — enabling a repeatable, portable pipeline without reliance on agency-specific tooling. This reflects a common constraint in public sector work, where data governance policies restrict use of external platforms on native infrastructure.
 
-**FY 2022–2023 Grants with Programmed Status**
-Returns all grants awarded in FY 2022 and 2023 with a human-readable programmed status flag, used for cycle-specific federal reporting periods.
+The following diagram illustrates the manual process that this ETL pipeline replaces: <img width="761" height="906" alt="New ETL flow" src="https://github.com/user-attachments/assets/5f4c1950-3c47-4fc4-ad49-1026333628f9" />
+
+## Pipeline Overview
+
+Three libraries support the pipeline: pandas for data processing and transformation, sqlite3 for structured storage, and string for label substitution across project title fields.
+
+Extract: Ingests the source CSV dataset into a pandas dataframe for inspection and transformation.
+
+Transform: Three columns are processed — Award Amount, Total Project Cost, and Project Title. For monetary fields, regular expressions strip currency symbols and formatting characters before pandas converts values to numeric type. A multiplier of 1.3 is then applied to anonymize real financial figures. Project titles are replaced with placeholder labels using a string substitution function to remove identifying metadata.
+
+Load: The cleaned, anonymized dataframe is written to a SQLite database table, making the output queryable via SQL rather than remaining in a flat file.
+
+A main() function runs extract, transform, and load in sequence, executing the full pipeline with a single call — the standard structure for production ETL workflows.
+
+## Debugging 
+
+Transform functions were run twice during early iterations which resulted in inaccurate multiplication factors. These were rewritten and the code rebuilt in a new notebook to minimize stale function carryover from Colab.
+
+## How to Run
+
+Requires pandas. Place a CSV in the same format in the working directory, update the filename in the extract() call, and run the script. The pipeline outputs a grants.db SQLite file with a table named grants.
+
+## SQL Queries for Reporting
+
+**Timeline — Late May/Early June 2026**
+
+The following queries were executed against the federal grants tracking database at NJTPA, supporting grant monitoring and reporting across a 13-county region in northern New Jersey. Queries preceded the Python automation pipeline and were run in SQL Server Management Studio for report generation. Data has been anonymized as described above.
+
+## Featured query — Union County grant risk flagging
+
+Identifies awarded grants in Union County that remain unprogrammed and unobligated, surfacing at-risk projects before federal spending deadlines. CASE statements convert binary flags into human-readable status fields for distribution to non-technical stakeholders.
+
+```
+SELECT 
+     [Awarded_FY]
+      ,[Agency]
+      ,[Funding_Source]
+      ,[Project_Title]
+      ,[Description_Summary]
+      ,[TIP_DBNUM]
+      ,[Grant_Type]
+      ,[Amount]
+      ,CASE
+      WHEN Programmed = 1 THEN 'Yes'
+      WHEN Programmed = 0 THEN 'No'
+      END AS [Programmed]
+      ,CASE
+      WHEN Obligated = 1 THEN 'Yes'
+      WHEN Obligated = 0 THEN 'No'
+      END AS [Obligated]
+      ,[Municipality]
+      ,[Recipient]
+FROM dbo.[Grants Tracker]
+WHERE County_ies = 'Union'
+AND [Programmed] != 1
+AND [Obligated] != 1
+ORDER BY [Awarded_FY] ASC
+```
+Additional queries supported FY 2022-2023 cycle reporting and subrecipient compliance monitoring for locally sponsored projects, filtering by obligation status and recipient type respectively.
 
 ## Context
-Outputs from the SQL queries were published via SSRS Report Builder for distribution to project managers, county liaisons, and executive staff. The Python automation that follows later cleans up this data for public use.
 
-## How to run it 
-
-Requires the dataset loaded onto any SQL-capable IDE for running each query (I have used SQL Server Management Studio 21 for this before). Query samples have been optimized for readability.
+Query outputs were published via Power BI Report Builder for distribution to project managers, county liaisons, and executive staff. The Python pipeline documented above automates and extends this process for public use.
