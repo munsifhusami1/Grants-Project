@@ -12,7 +12,7 @@ Note: Source data has been anonymized for public sharing, award amounts scaled b
 
 ## Tools
 
-Considering the sensitivity of government data and PII attached to records, I used Google Colab to keep the process off of internal software, anonymizing all personally identifiable information and real award figures. Colab allows me to share my files externally without any security risks to my employer's own server. I used Python for its data manipulation libraries, such as Pandas, to help me build a repeatable pipeline that avoided any reliance on our proprietary tooling as well. This approach is due to a common constraint of public sector work, as data governance policies prohibit using any external platforms on native data.
+Google Colab was selected to keep the pipeline off internal infrastructure, avoiding exposure of proprietary tools and ensuring no security risk to agency systems. All personally identifiable information and real award figures are anonymized prior to any external sharing. Python was chosen for its data manipulation libraries — primarily pandas — enabling a repeatable, portable pipeline without reliance on agency-specific tooling. This reflects a common constraint in public sector work, where data governance policies restrict use of external platforms on native infrastructure.
 
 Here's the manual process this pipeline replaces: <img width="761" height="906" alt="New ETL flow" src="https://github.com/user-attachments/assets/5f4c1950-3c47-4fc4-ad49-1026333628f9" />
 
